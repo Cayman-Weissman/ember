@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #efe9df;
+  --fg: #1a1512;
+  --muted: #6b6158;
+  --line: #d4cdc2;
+  --paper: #f7f2e9;
+  --ink: #1a1512;
+  --ember: #c12a12;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ember: var(--ember);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+html {
+  background: var(--bg);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body), Georgia, serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--ember) 28%, transparent);
+  color: var(--ink);
+}
+
+:where(a, button, input, textarea):focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 3px;
+}
+
+/* Black button → white + black border on hover */
+.ember-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-decoration: none;
+  cursor: pointer;
+  color: #fff;
+  background: #1a1512;
+  border: 2px solid #1a1512;
+  transition:
+    color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ember-btn:hover {
+  color: #1a1512;
+  background: var(--bg);
+  border: 2px solid #1a1512;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26, 21, 18, 0.12);
+}
+
+.ember-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.ember-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Outline button → white + black border on hover */
+.ember-btn-line {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-decoration: none;
+  cursor: pointer;
+  color: #1a1512;
+  background: transparent;
+  border: 2px solid #1a1512;
+  transition:
+    color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ember-btn-line:hover {
+  color: #1a1512;
+  background: var(--bg);
+  border: 2px solid #1a1512;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26, 21, 18, 0.12);
+}
+
+.ember-btn-line:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.ember-chip {
+  cursor: pointer;
+  color: #fff;
+  background: #1a1512;
+  border: 2px solid #1a1512;
+  transition:
+    color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ember-chip:hover {
+  color: #1a1512;
+  background: var(--bg);
+  border: 2px solid #1a1512;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26, 21, 18, 0.12);
+}
+
+.ember-chip.is-active {
+  color: #1a1512;
+  background: var(--bg);
+  border: 2px solid #1a1512;
+}
+
+.ember-chip.is-active:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26, 21, 18, 0.12);
+}
+
+.ember-chip-note {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ember-chip:hover .ember-chip-note,
+.ember-chip.is-active .ember-chip-note {
+  color: rgba(26, 21, 18, 0.55);
+}
+
+.ember-paper {
+  background: var(--bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
