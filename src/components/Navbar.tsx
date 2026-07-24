@@ -54,13 +54,6 @@ export function Navbar() {
     if (!isMobile) setMenuOpen(false);
   }, [isMobile]);
 
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
-
   const count = mounted ? cartCount(lines) : 0;
 
   return (
