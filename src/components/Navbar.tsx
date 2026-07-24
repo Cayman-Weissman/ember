@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { Wordmark } from "./brand";
 import { cartCount, useCart } from "@/lib/cart";
@@ -108,17 +109,17 @@ export function Navbar() {
               <span className="sr-only">{menuOpen ? "Close" : "Menu"}</span>
               <span className="relative block h-3.5 w-5" aria-hidden>
                 <span
-                  className={`absolute left-0 top-0 block h-0.5 w-full bg-fg transition-transform ${
+                  className={`absolute left-0 top-0 block h-0.5 w-full bg-fg transition-transform duration-300 ${
                     menuOpen ? "translate-y-[6px] rotate-45" : ""
                   }`}
                 />
                 <span
-                  className={`absolute left-0 top-[6px] block h-0.5 w-full bg-fg transition-opacity ${
+                  className={`absolute left-0 top-[6px] block h-0.5 w-full bg-fg transition-opacity duration-200 ${
                     menuOpen ? "opacity-0" : ""
                   }`}
                 />
                 <span
-                  className={`absolute left-0 top-[12px] block h-0.5 w-full bg-fg transition-transform ${
+                  className={`absolute left-0 top-[12px] block h-0.5 w-full bg-fg transition-transform duration-300 ${
                     menuOpen ? "-translate-y-[6px] -rotate-45" : ""
                   }`}
                 />
@@ -128,24 +129,44 @@ export function Navbar() {
         </div>
       </nav>
 
-      {isMobile && menuOpen && (
-        <div className="border-t border-line bg-bg">
-          <div className="mx-auto flex max-w-5xl flex-col px-5 py-4 sm:px-8">
-            {LINKS.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className={`border-b border-line py-3.5 text-base ${
-                  pathname === l.href ? "text-fg" : "text-muted"
-                }`}
-                onClick={() => setMenuOpen(false)}
-              >
-                {l.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {isMobile && menuOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden bg-bg"
+          >
+            <div className="mx-auto flex max-w-5xl flex-col gap-1 px-5 pb-6 pt-2 sm:px-8">
+              {LINKS.map((l, i) => (
+                <motion.div
+                  key={l.href}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 6 }}
+                  transition={{
+                    duration: 0.3,
+                    delay: 0.04 * i,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                >
+                  <Link
+                    href={l.href}
+                    className={`block py-2.5 text-lg ${
+                      pathname === l.href ? "text-fg" : "text-muted"
+                    }`}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {l.label}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
